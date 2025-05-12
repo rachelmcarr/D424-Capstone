@@ -19,4 +19,12 @@ public class CustomerService {
     public Customer save(Customer customer) {
         return customerRepository.save(customer);
     }
+
+    public List<Customer> searchByName(String name) {
+        return customerRepository.searchByFullName(name);
+    }
+
+    public void delete(Long id) {
+        customerRepository.deleteById(id);
+    }
 }

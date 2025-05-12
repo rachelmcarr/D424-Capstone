@@ -9,18 +9,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/services")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ShopServiceController {
 
     @Autowired
-    private ShopServiceService shopServiceService;
+    private ShopServiceService service;
 
     @GetMapping
     public List<ShopService> getAllServices() {
-        return shopServiceService.getAll();
+        return service.getAll();
     }
 
     @PostMapping
-    public ShopService addService(@RequestBody ShopService service) {
-        return shopServiceService.save(service);
+    public ShopService addService(@RequestBody ShopService shopService) {
+        return service.save(shopService);
     }
 }

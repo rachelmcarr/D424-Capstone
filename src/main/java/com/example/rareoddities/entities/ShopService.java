@@ -1,97 +1,53 @@
 package com.example.rareoddities.entities;
 
 import jakarta.persistence.*;
-import java.util.Date;
+import lombok.Data;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Data
 public class ShopService {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceID;
+
     private String title;
     private String description;
     private String location;
     private String style;
     private String duration;
     private String status;
-    private Double price;
+    private double price;
     private String imageURL;
     private String category;
-    private Date createdAt;
+    private String inkInfo;
+    private String jewelryInfo;
+    private LocalDateTime createdAt;
 
-    public ShopService() {
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public Long getServiceID() {
-        return serviceID;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setServiceID(Long serviceID) {
-        this.serviceID = serviceID;
+    public String getJewelryInfo() {
+        return jewelryInfo;
     }
 
-    public String getTitle() {
-        return title;
+    public void setJewelryInfo(String jewelryInfo) {
+        this.jewelryInfo = jewelryInfo;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getInkInfo() {
+        return inkInfo;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getStyle() {
-        return style;
-    }
-
-    public void setStyle(String style) {
-        this.style = style;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setInkInfo(String inkInfo) {
+        this.inkInfo = inkInfo;
     }
 
     public String getCategory() {
@@ -102,11 +58,75 @@ public class ShopService {
         this.category = category;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Long getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(Long serviceID) {
+        this.serviceID = serviceID;
     }
 }

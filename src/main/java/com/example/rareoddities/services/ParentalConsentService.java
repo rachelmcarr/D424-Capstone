@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ParentalConsentService {
+
     @Autowired
-    private ParentalConsentRepository consentRepository;
+    private ParentalConsentRepository repository;
 
     public ParentalConsent save(ParentalConsent consent) {
-        return consentRepository.save(consent);
+        return repository.save(consent);
     }
 }
-

@@ -9,14 +9,15 @@ import java.util.List;
 
 @Service
 public class ShopServiceService {
+
     @Autowired
-    private ShopServiceRepository shopServiceRepository;
+    private ShopServiceRepository repository;
 
     public List<ShopService> getAll() {
-        return shopServiceRepository.findAll();
+        return repository.findAll();
     }
 
     public ShopService save(ShopService service) {
-        return shopServiceRepository.save(service);
+        return repository.save(service);
     }
 }

@@ -2,24 +2,36 @@ package com.example.rareoddities.entities;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Artist {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long artistID;
+
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
+
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
+
     private String artistCategory;
     private String artistPhoto;
     private String bio;
     private String portfolioURL;
+    @ElementCollection
+    @CollectionTable(
+            name = "artist_gallery",
+            joinColumns = @JoinColumn(name = "artistID", referencedColumnName = "artistID")
+    )
+    @Column(name = "image_url")
+    private List<String> gallery;
 
-    public Artist() {
-    }
+    // Getters and Setters
 
     public Long getArtistID() {
         return artistID;
@@ -99,5 +111,13 @@ public class Artist {
 
     public void setPortfolioURL(String portfolioURL) {
         this.portfolioURL = portfolioURL;
+    }
+
+    public List<String> getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(List<String> gallery) {
+        this.gallery = gallery;
     }
 }
