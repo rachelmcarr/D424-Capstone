@@ -10,6 +10,7 @@ public class ClientIntake {
     private Long intakeID;
 
     @ManyToOne
+    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
     private Customer customer;
 
     @ManyToOne

@@ -34,4 +34,9 @@ public class TattooConsentController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+
+    @GetMapping("/customer/{customerId}")
+    public List<TattooConsent> getByCustomer(@PathVariable Long customerId) {
+        return service.findByCustomerId(customerId);
+    }
 }

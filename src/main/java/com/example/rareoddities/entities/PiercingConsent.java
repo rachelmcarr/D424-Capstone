@@ -7,7 +7,12 @@ import java.util.Date;
 public class PiercingConsent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "piercing_consentid")
     private Long piercingConsentID;
+
+    @ManyToOne
+    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
+    private Customer customer;
 
     @OneToOne
     private ClientIntake intake;

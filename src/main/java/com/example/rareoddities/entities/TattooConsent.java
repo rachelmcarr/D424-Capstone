@@ -10,9 +10,17 @@ public class TattooConsent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "tattoo_consentid")
+    private Long tattooConsentID;
 
     private Long intakeID;
+
+    @ManyToOne
+    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
+    private Customer customer;
+
+    @Transient
+    private Long customerID;
 
     private boolean drugsOrAlcohol;
     private boolean skinCondition;
@@ -35,11 +43,11 @@ public class TattooConsent {
     private LocalDate dateSigned;
 
     public Long getId() {
-        return id;
+        return tattooConsentID;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.tattooConsentID = id;
     }
 
     public Long getIntakeID() {

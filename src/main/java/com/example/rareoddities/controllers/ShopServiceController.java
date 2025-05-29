@@ -1,5 +1,7 @@
 package com.example.rareoddities.controllers;
 
+import com.example.rareoddities.dao.CustomerRepository;
+import com.example.rareoddities.entities.Customer;
 import com.example.rareoddities.entities.ShopService;
 import com.example.rareoddities.services.ShopServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class ShopServiceController {
     @Autowired
     private ShopServiceService service;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
     @GetMapping
     public List<ShopService> getAllServices() {
         return service.getAll();
@@ -22,12 +27,21 @@ public class ShopServiceController {
 
     @PostMapping
     public ShopService addService(@RequestBody ShopService shopService) {
+        if (shopService.getCustomer() != null && shopService.getCustomer().getCustomerID() != null) {
+            Long customerId = shopService.getCustomer().getCustomerID();
+            Customer customer = customerRepository.findById(customerId)
+                    .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + customerId));
+            shopService.setCustomer(customer);
+        } else {
+            shopService.setCustomer(null); // explicitly allow null
+        }
+
         return service.save(shopService);
     }
+
 
     @PutMapping("/{id}")
     public ShopService updateService(@PathVariable Long id, @RequestBody ShopService updatedService) {
         return service.updateService(id, updatedService);
     }
-
 }

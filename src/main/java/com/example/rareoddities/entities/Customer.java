@@ -7,6 +7,7 @@ import java.util.Date;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customerid")
     private Long customerID;
     private String firstName;
     private String lastName;

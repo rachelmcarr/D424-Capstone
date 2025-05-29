@@ -12,9 +12,14 @@ public class ParentalConsent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "parental_consentid")
     private Long parentalConsentID;
 
     private Long intakeID;
+
+    @ManyToOne
+    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
+    private Customer customer;
 
     private boolean releaseLiability;
     private boolean confirmRelationship;
