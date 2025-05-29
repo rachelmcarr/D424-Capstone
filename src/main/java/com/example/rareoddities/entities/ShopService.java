@@ -13,6 +13,10 @@ public class ShopService {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceID;
 
+    @ManyToOne
+    @JoinColumn(name = "artistID")
+    private Artist artist;
+
     private String title;
     private String description;
     private String location;
@@ -25,6 +29,15 @@ public class ShopService {
     private String inkInfo;
     private String jewelryInfo;
     private LocalDateTime createdAt;
+    private String completedPhotoURL;
+
+    public String getCompletedPhotoURL() {
+        return completedPhotoURL;
+    }
+
+    public void setCompletedPhotoURL(String completedPhotoURL) {
+        this.completedPhotoURL = completedPhotoURL;
+    }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -128,5 +141,13 @@ public class ShopService {
 
     public void setServiceID(Long serviceID) {
         this.serviceID = serviceID;
+    }
+
+    public Artist getArtist() {
+        return artist;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
 }

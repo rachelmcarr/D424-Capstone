@@ -20,4 +20,12 @@ public class ShopServiceService {
     public ShopService save(ShopService service) {
         return repository.save(service);
     }
+
+    public ShopService updateService(Long id, ShopService updatedService) {
+        ShopService existing = repository.findById(id).orElseThrow();
+        existing.setImageURL(updatedService.getImageURL());
+        existing.setStatus(updatedService.getStatus());
+        // Add other fields as needed
+        return repository.save(existing);
+    }
 }

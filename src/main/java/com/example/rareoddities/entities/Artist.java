@@ -16,7 +16,9 @@ public class Artist {
     private String email;
     private String phone;
 
-    @Temporal(TemporalType.DATE)
+
+
+    @Temporal(TemporalType.DATE) 
     private Date birthDate;
 
     private String artistCategory;

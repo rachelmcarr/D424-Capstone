@@ -29,5 +29,11 @@ public class ArtistService {
     public Optional<Artist> getById(Long id) {
         return artistRepository.findById(id);
     }
+
+    public Artist addImageToGallery(Long id, String imageUrl) {
+        Artist artist = artistRepository.findById(id).orElseThrow(() -> new RuntimeException("Artist not found"));
+        artist.getGallery().add(imageUrl);
+        return artistRepository.save(artist);
+    }
 }
 

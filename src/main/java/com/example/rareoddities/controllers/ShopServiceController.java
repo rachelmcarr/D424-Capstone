@@ -24,4 +24,10 @@ public class ShopServiceController {
     public ShopService addService(@RequestBody ShopService shopService) {
         return service.save(shopService);
     }
+
+    @PutMapping("/{id}")
+    public ShopService updateService(@PathVariable Long id, @RequestBody ShopService updatedService) {
+        return service.updateService(id, updatedService);
+    }
+
 }

@@ -55,4 +55,11 @@ public class ArtistController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/{id}/gallery")
+    public ResponseEntity<Artist> addToGallery(@PathVariable Long id, @RequestBody String imageUrl) {
+        Artist updated = artistService.addImageToGallery(id, imageUrl);
+        return ResponseEntity.ok(updated);
+    }
+
 }
