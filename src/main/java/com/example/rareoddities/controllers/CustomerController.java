@@ -1,8 +1,10 @@
 package com.example.rareoddities.controllers;
 
+import com.example.rareoddities.dao.CustomerRepository;
 import com.example.rareoddities.entities.Customer;
 import com.example.rareoddities.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +12,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/customers")
 public class CustomerController {
+
+    private final CustomerRepository customerRepository;
+
+    @Autowired
+    public CustomerController(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     @Autowired
     private CustomerService customerService;
@@ -22,6 +31,13 @@ public class CustomerController {
     @GetMapping("/search")
     public List<Customer> searchCustomers(@RequestParam String name) {
         return customerService.searchByName(name);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable Long id) {
+        return customerRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

@@ -3,7 +3,9 @@ package com.example.rareoddities.services;
 import com.example.rareoddities.dao.CustomerRepository;
 import com.example.rareoddities.dao.ShopServiceRepository;
 import com.example.rareoddities.entities.Customer;
+import com.example.rareoddities.entities.PiercingConsent;
 import com.example.rareoddities.entities.ShopService;
+import com.example.rareoddities.entities.TattooConsent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +56,9 @@ public class ShopServiceService {
         // Add other fields you'd like to support updating
 
         return repository.save(existing);
+    }
+
+    public List<ShopService> findByCustomerId(Long customerId) {
+        return repository.findByCustomerCustomerID(customerId);
     }
 }

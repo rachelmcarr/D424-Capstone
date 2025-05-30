@@ -9,4 +9,5 @@ import java.util.List;
 public interface ClientIntakeRepository extends JpaRepository<ClientIntake, Long> {
     List<ClientIntake> findByCustomer(Customer customer);
     List<ClientIntake> findByCustomerCustomerID(Long customerID);
+    List<ClientIntake> findByCustomer_CustomerID(Long customerID);
 }

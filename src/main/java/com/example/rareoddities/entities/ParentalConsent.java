@@ -21,6 +21,9 @@ public class ParentalConsent {
     @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
     private Customer customer;
 
+    @Transient
+    private Long customerID;
+
     private boolean releaseLiability;
     private boolean confirmRelationship;
     private boolean understandsHealing;
@@ -31,6 +34,22 @@ public class ParentalConsent {
     private String relationship;
     private String signature;
     private String dateSigned;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Long getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
+    }
 
     public String getDateSigned() {
         return dateSigned;

@@ -10,8 +10,11 @@ public class ClientIntake {
     private Long intakeID;
 
     @ManyToOne
-    @JoinColumn(name = "customerID", referencedColumnName = "customerid", nullable = false)
+    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
     private Customer customer;
+
+    @Transient
+    private Long customerID;
 
     @ManyToOne
     private ShopService service;
@@ -42,6 +45,14 @@ public class ClientIntake {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Long getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 
     public ShopService getService() {

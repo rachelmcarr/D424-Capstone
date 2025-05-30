@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tattoo-consents")
-@CrossOrigin(origins = "http://localhost:4200") // Adjust as needed
+@CrossOrigin(origins = "http://localhost:4200")
 public class TattooConsentController {
 
     @Autowired

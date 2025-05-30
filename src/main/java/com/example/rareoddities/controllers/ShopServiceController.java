@@ -3,6 +3,7 @@ package com.example.rareoddities.controllers;
 import com.example.rareoddities.dao.CustomerRepository;
 import com.example.rareoddities.entities.Customer;
 import com.example.rareoddities.entities.ShopService;
+import com.example.rareoddities.entities.TattooConsent;
 import com.example.rareoddities.services.ShopServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +44,10 @@ public class ShopServiceController {
     @PutMapping("/{id}")
     public ShopService updateService(@PathVariable Long id, @RequestBody ShopService updatedService) {
         return service.updateService(id, updatedService);
+    }
+
+    @GetMapping("/customer/{customerId}")
+    public List<ShopService> getByCustomer(@PathVariable Long customerId) {
+        return service.findByCustomerId(customerId);
     }
 }

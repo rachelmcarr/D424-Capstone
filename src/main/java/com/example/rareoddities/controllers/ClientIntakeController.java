@@ -27,6 +27,11 @@ public class ClientIntakeController {
         return clientIntakeService.getAll();
     }
 
+    @GetMapping("/customer/{id}")
+    public List<ClientIntake> getByCustomerId(@PathVariable Long id) {
+        return clientIntakeService.findByCustomerId(id);
+    }
+
     @PostMapping
     public ResponseEntity<ClientIntake> addIntake(@RequestBody ClientIntake intake) {
         if (intake.getCustomer() != null && intake.getCustomer().getCustomerID() != null) {

@@ -21,6 +21,9 @@ public class ShopService {
     @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = true)
     private Customer customer;
 
+    @Transient
+    private Long customerID;
+
     private String title;
     private String description;
     private String location;
@@ -60,6 +63,14 @@ public class ShopService {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Long getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
     }
 
     public String getTitle() {
