@@ -22,6 +22,13 @@ public class TattooConsent {
     @Transient
     private Long customerID;
 
+    @ManyToOne
+    @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
+    private ShopService service;
+
+    @Transient
+    private Long serviceID;
+
     private boolean drugsOrAlcohol;
     private boolean skinCondition;
     private boolean approveDesign;
@@ -41,6 +48,22 @@ public class TattooConsent {
     private boolean consentsToTattoo;
 
     private LocalDate dateSigned;
+
+    public ShopService getService() {
+        return service;
+    }
+
+    public void setService(ShopService service) {
+        this.service = service;
+    }
+
+    public Long getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(Long serviceID) {
+        this.serviceID = serviceID;
+    }
 
     public Long getId() {
         return tattooConsentID;

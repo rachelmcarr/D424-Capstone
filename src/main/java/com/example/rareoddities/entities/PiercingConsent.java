@@ -17,6 +17,13 @@ public class PiercingConsent {
     @Transient
     private Long customerID;
 
+    @ManyToOne
+    @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
+    private ShopService service;
+
+    @Transient
+    private Long serviceID;
+
     @OneToOne
     private ClientIntake intake;
 
@@ -26,6 +33,22 @@ public class PiercingConsent {
     private Date dateSigned;
 
     public PiercingConsent() {
+    }
+
+    public ShopService getService() {
+        return service;
+    }
+
+    public void setService(ShopService service) {
+        this.service = service;
+    }
+
+    public Long getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(Long serviceID) {
+        this.serviceID = serviceID;
     }
 
     public Customer getCustomer() {

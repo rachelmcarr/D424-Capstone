@@ -24,6 +24,13 @@ public class ParentalConsent {
     @Transient
     private Long customerID;
 
+    @ManyToOne
+    @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
+    private ShopService service;
+
+    @Transient
+    private Long serviceID;
+
     private boolean releaseLiability;
     private boolean confirmRelationship;
     private boolean understandsHealing;
@@ -49,6 +56,22 @@ public class ParentalConsent {
 
     public void setCustomerID(Long customerID) {
         this.customerID = customerID;
+    }
+
+    public ShopService getService() {
+        return service;
+    }
+
+    public void setService(ShopService service) {
+        this.service = service;
+    }
+
+    public Long getServiceID() {
+        return serviceID;
+    }
+
+    public void setServiceID(Long serviceID) {
+        this.serviceID = serviceID;
     }
 
     public String getDateSigned() {
