@@ -1,5 +1,7 @@
 package com.example.rareoddities.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -17,8 +19,9 @@ public class PiercingConsent {
     @Transient
     private Long customerID;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
+    @JsonIgnoreProperties("piercingConsent")
     private ShopService service;
 
     @Transient

@@ -1,5 +1,7 @@
 package com.example.rareoddities.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,8 +26,9 @@ public class ParentalConsent {
     @Transient
     private Long customerID;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
+    @JsonIgnoreProperties("parentalConsent")
     private ShopService service;
 
     @Transient

@@ -1,5 +1,8 @@
 package com.example.rareoddities.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +22,7 @@ public class ShopService {
 
     @ManyToOne
     @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = true)
+    @JsonBackReference
     private Customer customer;
 
     @Transient
@@ -40,6 +44,18 @@ public class ShopService {
     private String jewelryInfo;
     private LocalDateTime createdAt;
     private String completedPhotoURL;
+
+    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("service")
+    private TattooConsent tattooConsent;
+
+    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("service")
+    private PiercingConsent piercingConsent;
+
+    @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("service")
+    private ParentalConsent parentalConsent;
 
     public Long getServiceID() {
         return serviceID;
@@ -176,4 +192,29 @@ public class ShopService {
     public void setCompletedPhotoURL(String completedPhotoURL) {
         this.completedPhotoURL = completedPhotoURL;
     }
+
+    public TattooConsent getTattooConsent() {
+        return tattooConsent;
     }
+
+    public void setTattooConsent(TattooConsent tattooConsent) {
+        this.tattooConsent = tattooConsent;
+    }
+
+    public PiercingConsent getPiercingConsent() {
+        return piercingConsent;
+    }
+
+    public void setPiercingConsent(PiercingConsent piercingConsent) {
+        this.piercingConsent = piercingConsent;
+    }
+
+    public ParentalConsent getParentalConsent() {
+        return parentalConsent;
+    }
+
+    public void setParentalConsent(ParentalConsent parentalConsent) {
+        this.parentalConsent = parentalConsent;
+    }
+
+}

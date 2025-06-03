@@ -1,7 +1,6 @@
 package com.example.rareoddities.services;
 
-import com.example.rareoddities.dao.CustomerRepository;
-import com.example.rareoddities.dao.ShopServiceRepository;
+import com.example.rareoddities.dao.*;
 import com.example.rareoddities.entities.Customer;
 import com.example.rareoddities.entities.PiercingConsent;
 import com.example.rareoddities.entities.ShopService;
@@ -19,6 +18,15 @@ public class ShopServiceService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private TattooConsentRepository tattooConsentRepository;
+
+    @Autowired
+    private PiercingConsentRepository piercingConsentRepository;
+
+    @Autowired
+    private ParentalConsentRepository parentalConsentRepository;
 
     public List<ShopService> getAll() {
         return repository.findAll();
@@ -59,6 +67,14 @@ public class ShopServiceService {
     }
 
     public List<ShopService> findByCustomerId(Long customerId) {
-        return repository.findByCustomerCustomerID(customerId);
+        List<ShopService> services = repository.findByCustomerCustomerID(customerId);
+
+        for (ShopService service : services) {
+            service.setTattooConsent(tattooConsentRepository.findByService(service).orElse(null));
+            service.setPiercingConsent(piercingConsentRepository.findByService(service).orElse(null));
+            service.setParentalConsent(parentalConsentRepository.findByService(service).orElse(null));
+        }
+
+        return services;
     }
 }

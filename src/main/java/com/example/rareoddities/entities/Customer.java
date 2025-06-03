@@ -1,7 +1,11 @@
 package com.example.rareoddities.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Customer {
@@ -13,7 +17,11 @@ public class Customer {
     private String lastName;
     private String email;
     private String phone;
+
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
+
     private String driverLicense;
     private String address;
     private String city;
@@ -22,6 +30,10 @@ public class Customer {
     private String customerPhoto;
     private Date createdAt;
     private Date updatedAt;
+
+    @OneToMany(mappedBy = "customer")
+    @JsonBackReference
+    private List<ShopService> services;
 
     public Customer() {
     }
