@@ -1,18 +1,19 @@
 package com.example.rareoddities.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customerid")
     private Long customerID;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -32,12 +33,13 @@ public class Customer {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "customer")
-    @JsonBackReference
+    @JsonIgnoreProperties({"customer", "tattooConsent", "piercingConsent", "parentalConsent"})
     private List<ShopService> services;
 
-    public Customer() {
-    }
+    // Constructors
+    public Customer() {}
 
+    // Getters and Setters
     public Long getCustomerID() {
         return customerID;
     }
@@ -148,5 +150,18 @@ public class Customer {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<ShopService> getServices() {
+        return services;
+    }
+
+    public void setServices(List<ShopService> services) {
+        this.services = services;
+    }
+
+    // Helper method for service/consent binding
+    public Long fetchCustomerID() {
+        return this.customerID;
     }
 }

@@ -1,15 +1,10 @@
 package com.example.rareoddities.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Data
 public class ShopService {
 
     @Id
@@ -22,7 +17,7 @@ public class ShopService {
 
     @ManyToOne
     @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = true)
-    @JsonBackReference
+    @JsonIgnoreProperties({"services"})
     private Customer customer;
 
     @Transient
@@ -46,17 +41,18 @@ public class ShopService {
     private String completedPhotoURL;
 
     @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("service")
+    @JsonIgnoreProperties({"customer", "service"})
     private TattooConsent tattooConsent;
 
     @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("service")
+    @JsonIgnoreProperties({"customer", "service"})
     private PiercingConsent piercingConsent;
 
     @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("service")
+    @JsonIgnoreProperties({"customer", "service"})
     private ParentalConsent parentalConsent;
 
+    // Getters and Setters
     public Long getServiceID() {
         return serviceID;
     }
@@ -217,4 +213,8 @@ public class ShopService {
         this.parentalConsent = parentalConsent;
     }
 
+    // Helper method for service binding
+    public Long fetchServiceID() {
+        return this.serviceID;
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.rareoddities.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,19 +19,14 @@ public class ParentalConsent {
     private Long intakeID;
 
     @ManyToOne
-    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
+    @JoinColumn(name = "customerid", nullable = false)
+    @JsonIgnoreProperties({"services"})
     private Customer customer;
 
-    @Transient
-    private Long customerID;
-
     @OneToOne
-    @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
-    @JsonIgnoreProperties("parentalConsent")
+    @JoinColumn(name = "serviceid", nullable = false)
+    @JsonIgnoreProperties({"parentalConsent"})
     private ShopService service;
-
-    @Transient
-    private Long serviceID;
 
     private boolean releaseLiability;
     private boolean confirmRelationship;
@@ -45,108 +39,12 @@ public class ParentalConsent {
     private String signature;
     private String dateSigned;
 
-    public Customer getCustomer() {
-        return customer;
+    public Long getParentalConsentID() {
+        return parentalConsentID;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Long getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
-    }
-
-    public ShopService getService() {
-        return service;
-    }
-
-    public void setService(ShopService service) {
-        this.service = service;
-    }
-
-    public Long getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(Long serviceID) {
-        this.serviceID = serviceID;
-    }
-
-    public String getDateSigned() {
-        return dateSigned;
-    }
-
-    public void setDateSigned(String dateSigned) {
-        this.dateSigned = dateSigned;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
-
-    public String getRelationship() {
-        return relationship;
-    }
-
-    public void setRelationship(String relationship) {
-        this.relationship = relationship;
-    }
-
-    public String getParentPhone() {
-        return parentPhone;
-    }
-
-    public void setParentPhone(String parentPhone) {
-        this.parentPhone = parentPhone;
-    }
-
-    public String getParentName() {
-        return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
-    }
-
-    public String getServiceDescription() {
-        return serviceDescription;
-    }
-
-    public void setServiceDescription(String serviceDescription) {
-        this.serviceDescription = serviceDescription;
-    }
-
-    public boolean isUnderstandsHealing() {
-        return understandsHealing;
-    }
-
-    public void setUnderstandsHealing(boolean understandsHealing) {
-        this.understandsHealing = understandsHealing;
-    }
-
-    public boolean isConfirmRelationship() {
-        return confirmRelationship;
-    }
-
-    public void setConfirmRelationship(boolean confirmRelationship) {
-        this.confirmRelationship = confirmRelationship;
-    }
-
-    public boolean isReleaseLiability() {
-        return releaseLiability;
-    }
-
-    public void setReleaseLiability(boolean releaseLiability) {
-        this.releaseLiability = releaseLiability;
+    public void setParentalConsentID(Long parentalConsentID) {
+        this.parentalConsentID = parentalConsentID;
     }
 
     public Long getIntakeID() {
@@ -157,11 +55,113 @@ public class ParentalConsent {
         this.intakeID = intakeID;
     }
 
-    public Long getParentalConsentID() {
-        return parentalConsentID;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setParentalConsentID(Long parentalConsentID) {
-        this.parentalConsentID = parentalConsentID;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public ShopService getService() {
+        return service;
+    }
+
+    public void setService(ShopService service) {
+        this.service = service;
+    }
+
+    public boolean isReleaseLiability() {
+        return releaseLiability;
+    }
+
+    public void setReleaseLiability(boolean releaseLiability) {
+        this.releaseLiability = releaseLiability;
+    }
+
+    public boolean isConfirmRelationship() {
+        return confirmRelationship;
+    }
+
+    public void setConfirmRelationship(boolean confirmRelationship) {
+        this.confirmRelationship = confirmRelationship;
+    }
+
+    public boolean isUnderstandsHealing() {
+        return understandsHealing;
+    }
+
+    public void setUnderstandsHealing(boolean understandsHealing) {
+        this.understandsHealing = understandsHealing;
+    }
+
+    public String getServiceDescription() {
+        return serviceDescription;
+    }
+
+    public void setServiceDescription(String serviceDescription) {
+        this.serviceDescription = serviceDescription;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+
+    public String getParentPhone() {
+        return parentPhone;
+    }
+
+    public void setParentPhone(String parentPhone) {
+        this.parentPhone = parentPhone;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public String getDateSigned() {
+        return dateSigned;
+    }
+
+    public void setDateSigned(String dateSigned) {
+        this.dateSigned = dateSigned;
+    }
+
+    @Transient
+    private Long customerID;
+
+    @Transient
+    private Long serviceID;
+
+    public Long getCustomerID() {
+        return customerID != null ? customerID : (customer != null ? customer.getCustomerID() : null);
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
+    }
+
+    public Long getServiceID() {
+        return serviceID != null ? serviceID : (service != null ? service.getServiceID() : null);
+    }
+
+    public void setServiceID(Long serviceID) {
+        this.serviceID = serviceID;
     }
 }

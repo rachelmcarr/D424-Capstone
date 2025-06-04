@@ -6,7 +6,6 @@ import com.example.rareoddities.dao.ShopServiceRepository;
 import com.example.rareoddities.entities.Customer;
 import com.example.rareoddities.entities.PiercingConsent;
 import com.example.rareoddities.entities.ShopService;
-import com.example.rareoddities.entities.TattooConsent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -24,15 +24,17 @@ public class TattooConsentService {
     private ShopServiceRepository shopServiceRepository;
 
     public TattooConsent save(TattooConsent consent) {
+        // Set customer if only ID is provided
         if (consent.getCustomer() == null && consent.getCustomerID() != null) {
             Customer customer = customerRepository.findById(consent.getCustomerID())
-                    .orElseThrow(() -> new RuntimeException("Customer not found"));
+                    .orElseThrow(() -> new RuntimeException("Customer not found with ID: " + consent.getCustomerID()));
             consent.setCustomer(customer);
         }
 
+        // Set service if only ID is provided
         if (consent.getService() == null && consent.getServiceID() != null) {
             ShopService service = shopServiceRepository.findById(consent.getServiceID())
-                    .orElseThrow(() -> new RuntimeException("Service not found"));
+                    .orElseThrow(() -> new RuntimeException("Service not found with ID: " + consent.getServiceID()));
             consent.setService(service);
         }
 

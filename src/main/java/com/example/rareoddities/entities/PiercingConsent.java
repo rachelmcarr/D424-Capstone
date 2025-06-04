@@ -1,6 +1,5 @@
 package com.example.rareoddities.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.Date;
@@ -13,19 +12,14 @@ public class PiercingConsent {
     private Long piercingConsentID;
 
     @ManyToOne
-    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
+    @JoinColumn(name = "customerid", nullable = false)
+    @JsonIgnoreProperties({"services"})
     private Customer customer;
 
-    @Transient
-    private Long customerID;
-
     @OneToOne
-    @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
-    @JsonIgnoreProperties("piercingConsent")
+    @JoinColumn(name = "serviceid", nullable = false)
+    @JsonIgnoreProperties({"piercingConsent"})
     private ShopService service;
-
-    @Transient
-    private Long serviceID;
 
     @OneToOne
     private ClientIntake intake;
@@ -35,23 +29,12 @@ public class PiercingConsent {
     private Boolean consentsToPiercing;
     private Date dateSigned;
 
-    public PiercingConsent() {
+    public Long getPiercingConsentID() {
+        return piercingConsentID;
     }
 
-    public ShopService getService() {
-        return service;
-    }
-
-    public void setService(ShopService service) {
-        this.service = service;
-    }
-
-    public Long getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(Long serviceID) {
-        this.serviceID = serviceID;
+    public void setPiercingConsentID(Long piercingConsentID) {
+        this.piercingConsentID = piercingConsentID;
     }
 
     public Customer getCustomer() {
@@ -62,20 +45,12 @@ public class PiercingConsent {
         this.customer = customer;
     }
 
-    public Long getCustomerID() {
-        return customerID;
+    public ShopService getService() {
+        return service;
     }
 
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
-    }
-
-    public Long getPiercingConsentID() {
-        return piercingConsentID;
-    }
-
-    public void setPiercingConsentID(Long piercingConsentID) {
-        this.piercingConsentID = piercingConsentID;
+    public void setService(ShopService service) {
+        this.service = service;
     }
 
     public ClientIntake getIntake() {
@@ -117,5 +92,27 @@ public class PiercingConsent {
     public void setDateSigned(Date dateSigned) {
         this.dateSigned = dateSigned;
     }
-}
 
+    @Transient
+    private Long customerID;
+
+    @Transient
+    private Long serviceID;
+
+    public Long getCustomerID() {
+        return customerID != null ? customerID : (customer != null ? customer.getCustomerID() : null);
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
+    }
+
+    public Long getServiceID() {
+        return serviceID != null ? serviceID : (service != null ? service.getServiceID() : null);
+    }
+
+    public void setServiceID(Long serviceID) {
+        this.serviceID = serviceID;
+    }
+
+}

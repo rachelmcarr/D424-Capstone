@@ -1,6 +1,6 @@
 package com.example.rareoddities.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -18,19 +18,14 @@ public class TattooConsent {
     private Long intakeID;
 
     @ManyToOne
-    @JoinColumn(name = "customerid", referencedColumnName = "customerid", nullable = false)
+    @JoinColumn(name = "customerid", nullable = false)
+    @JsonIgnoreProperties({"services"})
     private Customer customer;
 
-    @Transient
-    private Long customerID;
-
     @OneToOne
-    @JoinColumn(name = "serviceid", referencedColumnName = "serviceid", nullable = false)
-    @JsonIgnoreProperties("tattooConsent")
+    @JoinColumn(name = "serviceid", nullable = false)
+    @JsonIgnoreProperties({"tattooConsent"})
     private ShopService service;
-
-    @Transient
-    private Long serviceID;
 
     private boolean drugsOrAlcohol;
     private boolean skinCondition;
@@ -50,30 +45,15 @@ public class TattooConsent {
     private boolean agreesToAftercare;
     private boolean consentsToTattoo;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateSigned;
 
-    public ShopService getService() {
-        return service;
-    }
-
-    public void setService(ShopService service) {
-        this.service = service;
-    }
-
-    public Long getServiceID() {
-        return serviceID;
-    }
-
-    public void setServiceID(Long serviceID) {
-        this.serviceID = serviceID;
-    }
-
-    public Long getId() {
+    public Long getTattooConsentID() {
         return tattooConsentID;
     }
 
-    public void setId(Long id) {
-        this.tattooConsentID = id;
+    public void setTattooConsentID(Long tattooConsentID) {
+        this.tattooConsentID = tattooConsentID;
     }
 
     public Long getIntakeID() {
@@ -82,6 +62,22 @@ public class TattooConsent {
 
     public void setIntakeID(Long intakeID) {
         this.intakeID = intakeID;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public ShopService getService() {
+        return service;
+    }
+
+    public void setService(ShopService service) {
+        this.service = service;
     }
 
     public boolean isDrugsOrAlcohol() {
@@ -227,4 +223,27 @@ public class TattooConsent {
     public void setDateSigned(LocalDate dateSigned) {
         this.dateSigned = dateSigned;
     }
+
+    @Transient
+    private Long customerID;
+
+    @Transient
+    private Long serviceID;
+
+    public Long getCustomerID() {
+        return customerID != null ? customerID : (customer != null ? customer.getCustomerID() : null);
+    }
+
+    public void setCustomerID(Long customerID) {
+        this.customerID = customerID;
+    }
+
+    public Long getServiceID() {
+        return serviceID != null ? serviceID : (service != null ? service.getServiceID() : null);
+    }
+
+    public void setServiceID(Long serviceID) {
+        this.serviceID = serviceID;
+    }
+
 }
