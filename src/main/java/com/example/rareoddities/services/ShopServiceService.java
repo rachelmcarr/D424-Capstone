@@ -67,7 +67,10 @@ public class ShopServiceService {
     }
 
     public List<ShopService> findByCustomerId(Long customerId) {
-        List<ShopService> services = repository.findByCustomerCustomerID(customerId);
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + customerId));
+
+        List<ShopService> services = repository.findByCustomer(customer);
 
         for (ShopService service : services) {
             service.setTattooConsent(tattooConsentRepository.findByService(service).orElse(null));
@@ -77,4 +80,5 @@ public class ShopServiceService {
 
         return services;
     }
+
 }

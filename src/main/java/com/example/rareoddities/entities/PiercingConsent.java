@@ -29,6 +29,12 @@ public class PiercingConsent {
     private Boolean consentsToPiercing;
     private Date dateSigned;
 
+    @Transient
+    private Long customerID;
+
+    @Transient
+    private Long serviceID;
+
     public Long getPiercingConsentID() {
         return piercingConsentID;
     }
@@ -92,12 +98,6 @@ public class PiercingConsent {
     public void setDateSigned(Date dateSigned) {
         this.dateSigned = dateSigned;
     }
-
-    @Transient
-    private Long customerID;
-
-    @Transient
-    private Long serviceID;
 
     public Long getCustomerID() {
         return customerID != null ? customerID : (customer != null ? customer.getCustomerID() : null);

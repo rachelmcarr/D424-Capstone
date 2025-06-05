@@ -2,6 +2,8 @@ package com.example.rareoddities.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,7 +14,7 @@ public class ShopService {
     private Long serviceID;
 
     @ManyToOne
-    @JoinColumn(name = "artistID")
+    @JoinColumn(name = "artistid")
     private Artist artist;
 
     @ManyToOne
@@ -37,7 +39,7 @@ public class ShopService {
 
     private String inkInfo;
     private String jewelryInfo;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private String completedPhotoURL;
 
     @OneToOne(mappedBy = "service", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -173,11 +175,11 @@ public class ShopService {
         this.jewelryInfo = jewelryInfo;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 

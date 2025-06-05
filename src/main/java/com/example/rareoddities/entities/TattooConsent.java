@@ -23,18 +23,18 @@ public class TattooConsent {
     private Customer customer;
 
     @OneToOne
-    @JoinColumn(name = "serviceid", nullable = false)
+    @JoinColumn(name = "serviceid", nullable = false, unique = true)
     @JsonIgnoreProperties({"tattooConsent"})
     private ShopService service;
 
     private boolean drugsOrAlcohol;
     private boolean skinCondition;
     private boolean approveDesign;
-    private boolean isNotPregnant;
+    private boolean notPregnant;
     private boolean hasDisease;
-    private boolean isMinor;
+    private boolean minor;
     private boolean understandsAllergyRisk;
-    private boolean undertandsInfectionRisk;
+    private boolean understandsInfectionRisk;
     private boolean receiptOfAftercare;
     private boolean understandsVariation;
     private boolean understandsPermanence;
@@ -44,9 +44,13 @@ public class TattooConsent {
     private boolean understandsMedicalRisk;
     private boolean agreesToAftercare;
     private boolean consentsToTattoo;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateSigned;
+
+    @Transient
+    private Long customerID;
+
+    @Transient
+    private Long serviceID;
 
     public Long getTattooConsentID() {
         return tattooConsentID;
@@ -105,11 +109,11 @@ public class TattooConsent {
     }
 
     public boolean isNotPregnant() {
-        return isNotPregnant;
+        return notPregnant;
     }
 
     public void setNotPregnant(boolean notPregnant) {
-        isNotPregnant = notPregnant;
+        this.notPregnant = notPregnant;
     }
 
     public boolean isHasDisease() {
@@ -121,11 +125,11 @@ public class TattooConsent {
     }
 
     public boolean isMinor() {
-        return isMinor;
+        return minor;
     }
 
     public void setMinor(boolean minor) {
-        isMinor = minor;
+        this.minor = minor;
     }
 
     public boolean isUnderstandsAllergyRisk() {
@@ -136,12 +140,12 @@ public class TattooConsent {
         this.understandsAllergyRisk = understandsAllergyRisk;
     }
 
-    public boolean isUndertandsInfectionRisk() {
-        return undertandsInfectionRisk;
+    public boolean isUnderstandsInfectionRisk() {
+        return understandsInfectionRisk;
     }
 
-    public void setUndertandsInfectionRisk(boolean undertandsInfectionRisk) {
-        this.undertandsInfectionRisk = undertandsInfectionRisk;
+    public void setUnderstandsInfectionRisk(boolean understandsInfectionRisk) {
+        this.understandsInfectionRisk = understandsInfectionRisk;
     }
 
     public boolean isReceiptOfAftercare() {
@@ -224,12 +228,6 @@ public class TattooConsent {
         this.dateSigned = dateSigned;
     }
 
-    @Transient
-    private Long customerID;
-
-    @Transient
-    private Long serviceID;
-
     public Long getCustomerID() {
         return customerID != null ? customerID : (customer != null ? customer.getCustomerID() : null);
     }
@@ -245,5 +243,4 @@ public class TattooConsent {
     public void setServiceID(Long serviceID) {
         this.serviceID = serviceID;
     }
-
 }
