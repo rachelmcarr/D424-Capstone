@@ -1,15 +1,10 @@
 package com.example.rareoddities.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
 @Table(name = "parental_consents")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ParentalConsent {
+public class ParentalConsent extends ConsentForm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,16 +12,6 @@ public class ParentalConsent {
     private Long parentalConsentID;
 
     private Long intakeID;
-
-    @ManyToOne
-    @JoinColumn(name = "customerid", nullable = false)
-    @JsonIgnoreProperties({"services"})
-    private Customer customer;
-
-    @OneToOne
-    @JoinColumn(name = "serviceid", nullable = false)
-    @JsonIgnoreProperties({"parentalConsent"})
-    private ShopService service;
 
     private boolean releaseLiability;
     private boolean confirmRelationship;
@@ -37,7 +22,8 @@ public class ParentalConsent {
     private String parentPhone;
     private String relationship;
     private String signature;
-    private String dateSigned;
+
+    // --- Getters and Setters ---
 
     public Long getParentalConsentID() {
         return parentalConsentID;
@@ -53,22 +39,6 @@ public class ParentalConsent {
 
     public void setIntakeID(Long intakeID) {
         this.intakeID = intakeID;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public ShopService getService() {
-        return service;
-    }
-
-    public void setService(ShopService service) {
-        this.service = service;
     }
 
     public boolean isReleaseLiability() {
@@ -133,35 +103,5 @@ public class ParentalConsent {
 
     public void setSignature(String signature) {
         this.signature = signature;
-    }
-
-    public String getDateSigned() {
-        return dateSigned;
-    }
-
-    public void setDateSigned(String dateSigned) {
-        this.dateSigned = dateSigned;
-    }
-
-    @Transient
-    private Long customerID;
-
-    @Transient
-    private Long serviceID;
-
-    public Long getCustomerID() {
-        return customerID != null ? customerID : (customer != null ? customer.getCustomerID() : null);
-    }
-
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
-    }
-
-    public Long getServiceID() {
-        return serviceID != null ? serviceID : (service != null ? service.getServiceID() : null);
-    }
-
-    public void setServiceID(Long serviceID) {
-        this.serviceID = serviceID;
     }
 }

@@ -1,14 +1,10 @@
 package com.example.rareoddities.entities;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.Data;
 import java.time.LocalDate;
 
 @Entity
-@Data
-public class TattooConsent {
+public class TattooConsent extends ConsentForm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,16 +12,6 @@ public class TattooConsent {
     private Long tattooConsentID;
 
     private Long intakeID;
-
-    @ManyToOne
-    @JoinColumn(name = "customerid", nullable = false)
-    @JsonIgnoreProperties({"services"})
-    private Customer customer;
-
-    @OneToOne
-    @JoinColumn(name = "serviceid", nullable = false, unique = true)
-    @JsonIgnoreProperties({"tattooConsent"})
-    private ShopService service;
 
     private boolean drugsOrAlcohol;
     private boolean skinCondition;
@@ -44,13 +30,8 @@ public class TattooConsent {
     private boolean understandsMedicalRisk;
     private boolean agreesToAftercare;
     private boolean consentsToTattoo;
-    private LocalDate dateSigned;
 
-    @Transient
-    private Long customerID;
-
-    @Transient
-    private Long serviceID;
+    // --- Getters and Setters ---
 
     public Long getTattooConsentID() {
         return tattooConsentID;
@@ -66,22 +47,6 @@ public class TattooConsent {
 
     public void setIntakeID(Long intakeID) {
         this.intakeID = intakeID;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public ShopService getService() {
-        return service;
-    }
-
-    public void setService(ShopService service) {
-        this.service = service;
     }
 
     public boolean isDrugsOrAlcohol() {
@@ -218,29 +183,5 @@ public class TattooConsent {
 
     public void setConsentsToTattoo(boolean consentsToTattoo) {
         this.consentsToTattoo = consentsToTattoo;
-    }
-
-    public LocalDate getDateSigned() {
-        return dateSigned;
-    }
-
-    public void setDateSigned(LocalDate dateSigned) {
-        this.dateSigned = dateSigned;
-    }
-
-    public Long getCustomerID() {
-        return customerID != null ? customerID : (customer != null ? customer.getCustomerID() : null);
-    }
-
-    public void setCustomerID(Long customerID) {
-        this.customerID = customerID;
-    }
-
-    public Long getServiceID() {
-        return serviceID != null ? serviceID : (service != null ? service.getServiceID() : null);
-    }
-
-    public void setServiceID(Long serviceID) {
-        this.serviceID = serviceID;
     }
 }
