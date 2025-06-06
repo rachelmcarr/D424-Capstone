@@ -52,6 +52,6 @@ public class PiercingConsentService {
     }
 
     public List<PiercingConsent> findByCustomerId(Long customerId) {
-        return repository.findByCustomerCustomerID(customerId);
+        return repository.findByCustomerIdWithRelations(customerId);
     }
 }

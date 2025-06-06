@@ -1,9 +1,11 @@
 package com.example.rareoddities.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 public abstract class ConsentForm {
@@ -21,7 +23,8 @@ public abstract class ConsentForm {
     @OneToOne
     private ClientIntake intake;
 
-    private LocalDate dateSigned;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dateSigned;
 
     @Transient
     private Long customerID;
@@ -53,11 +56,11 @@ public abstract class ConsentForm {
         this.intake = intake;
     }
 
-    public LocalDate getDateSigned() {
+    public LocalDateTime getDateSigned() {
         return dateSigned;
     }
 
-    public void setDateSigned(LocalDate dateSigned) {
+    public void setDateSigned(LocalDateTime dateSigned) {
         this.dateSigned = dateSigned;
     }
 

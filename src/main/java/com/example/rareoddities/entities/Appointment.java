@@ -1,6 +1,9 @@
 package com.example.rareoddities.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -12,7 +15,8 @@ public class Appointment {
     @ManyToOne
     private ShopService service;
 
-    private Date scheduledTime;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate scheduledTime;
     private String status;
 
     public Appointment() {
@@ -34,11 +38,11 @@ public class Appointment {
         this.service = service;
     }
 
-    public Date getScheduledTime() {
+    public LocalDate getScheduledTime() {
         return scheduledTime;
     }
 
-    public void setScheduledTime(Date scheduledTime) {
+    public void setScheduledTime(LocalDate scheduledTime) {
         this.scheduledTime = scheduledTime;
     }
 

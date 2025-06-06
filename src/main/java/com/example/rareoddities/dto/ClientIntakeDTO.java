@@ -1,11 +1,17 @@
 package com.example.rareoddities.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ClientIntakeDTO {
     private Long customerID;
     private Long serviceID;
-    private Date dateSubmitted;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dateSubmitted;
     private Boolean hasAllergies;
     private String allergyDetails;
     private Boolean takesMedications;
@@ -21,8 +27,8 @@ public class ClientIntakeDTO {
     public Long getServiceID() { return serviceID; }
     public void setServiceID(Long serviceID) { this.serviceID = serviceID; }
 
-    public Date getDateSubmitted() { return dateSubmitted; }
-    public void setDateSubmitted(Date dateSubmitted) { this.dateSubmitted = dateSubmitted; }
+    public LocalDateTime getDateSubmitted() { return dateSubmitted; }
+    public void setDateSubmitted(LocalDateTime dateSubmitted) { this.dateSubmitted = dateSubmitted; }
 
     public Boolean getHasAllergies() { return hasAllergies; }
     public void setHasAllergies(Boolean hasAllergies) { this.hasAllergies = hasAllergies; }

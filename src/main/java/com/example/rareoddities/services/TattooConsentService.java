@@ -54,6 +54,6 @@ public class TattooConsentService {
     }
 
     public List<TattooConsent> findByCustomerId(Long customerId) {
-        return repository.findByCustomerCustomerID(customerId);
+        return repository.findByCustomerIdWithRelations(customerId);
     }
 }

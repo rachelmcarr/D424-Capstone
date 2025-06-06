@@ -1,6 +1,9 @@
 package com.example.rareoddities.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +21,8 @@ public class Artist {
 
 
 
-    @Temporal(TemporalType.DATE) 
-    private Date birthDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate birthDate;
 
     private String artistCategory;
     private String artistPhoto;
@@ -75,11 +78,11 @@ public class Artist {
         this.phone = phone;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

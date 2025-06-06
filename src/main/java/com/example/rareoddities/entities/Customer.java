@@ -3,6 +3,11 @@ package com.example.rareoddities.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +24,8 @@ public class Customer {
     private String email;
     private String phone;
 
-    @Temporal(TemporalType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     private String driverLicense;
     private String address;
@@ -29,12 +33,16 @@ public class Customer {
     private String state;
     private String zip;
     private String customerPhoto;
-    private Date createdAt;
-    private Date updatedAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnoreProperties({"customer", "tattooConsent", "piercingConsent", "parentalConsent"})
-    private List<ShopService> services;
+    private List<ShopService> services = new ArrayList<>();
 
     // Constructors
     public Customer() {}
@@ -80,11 +88,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -136,19 +144,19 @@ public class Customer {
         this.customerPhoto = customerPhoto;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
