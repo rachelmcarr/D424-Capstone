@@ -1,10 +1,7 @@
 package com.example.rareoddities.services;
 
 import com.example.rareoddities.dao.*;
-import com.example.rareoddities.entities.Customer;
-import com.example.rareoddities.entities.PiercingConsent;
-import com.example.rareoddities.entities.ShopService;
-import com.example.rareoddities.entities.TattooConsent;
+import com.example.rareoddities.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +18,9 @@ public class ShopServiceService {
 
     @Autowired
     private TattooConsentRepository tattooConsentRepository;
+
+    @Autowired
+    private ClientIntakeRepository clientIntakeRepository;
 
     @Autowired
     private PiercingConsentRepository piercingConsentRepository;
@@ -81,4 +81,20 @@ public class ShopServiceService {
         return services;
     }
 
+    public void deleteShopService(Long id) {
+        ShopService service = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Service not found with ID: " + id));
+
+        // Delete related consents
+        tattooConsentRepository.findByService(service).ifPresent(tattooConsentRepository::delete);
+        piercingConsentRepository.findByService(service).ifPresent(piercingConsentRepository::delete);
+        parentalConsentRepository.findByService(service).ifPresent(parentalConsentRepository::delete);
+
+        // Delete related client intakes
+        List<ClientIntake> intakes = clientIntakeRepository.findByService(service);
+        clientIntakeRepository.deleteAll(intakes);
+
+        // Now delete the service
+        repository.delete(service);
+    }
 }

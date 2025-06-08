@@ -6,6 +6,7 @@ import com.example.rareoddities.entities.ShopService;
 import com.example.rareoddities.entities.TattooConsent;
 import com.example.rareoddities.services.ShopServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,5 +50,11 @@ public class ShopServiceController {
     @GetMapping("/customer/{customerId}")
     public List<ShopService> getByCustomer(@PathVariable Long customerId) {
         return service.findByCustomerId(customerId);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteService(@PathVariable Long id) {
+        service.deleteShopService(id);
+        return ResponseEntity.noContent().build();
     }
 }
